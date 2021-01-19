@@ -351,6 +351,8 @@ a {
 .item__amount {
     font-size: 1.6rem;
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .cart__footer {

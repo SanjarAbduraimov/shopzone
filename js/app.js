@@ -145,7 +145,6 @@ class UI {
             cart.length = 0;
             this.setCartValue(cart);
             Storage.saveCart(cart);
-            console.log(cart);
         })
         cartDOM.addEventListener("click", event => {
             if (event.target.classList.contains("remove__item")) {
@@ -163,13 +162,36 @@ class UI {
 
             }
             if (event.target.classList.contains("fa-chevron-up")) {
-                let id = event.target.dataset.id;
+                let addItem = event.target;
+                let id = addItem.dataset.id;
                 let cartItem = cart.find(i => i.id == id);
                 cartItem.amount += 1;
+                Storage.saveCart(cart);
+                this.setCartValue(cart);
+                addItem.nextElementSibling.innerHTML = cartItem.amount;
 
             }
             if (event.target.classList.contains("fa-chevron-down")) {
-                let id = event.target.dataset.id;
+                let removeItem = event.target;
+                let id = removeItem.dataset.id;
+                let cartItem = cart.find(i => i.id == id);
+                if (cartItem.amount > 1) {
+                    cartItem.amount -= 1;
+                    Storage.saveCart(cart);
+                    this.setCartValue(cart);
+                    removeItem.previousElementSibling.innerHTML = cartItem.amount;
+                } else {
+                    cart = Storage.remove(id);
+                    removeItem.parentElement.parentElement.remove();
+                    this.setCartValue(cart);
+                    Storage.saveCart(cart);
+                    buttonsDom.forEach(i => {
+                        if (i.dataset.id == id) {
+                            i.disabled = false;
+                            i.innerHTML = `<i class="fas fa-shopping-cart"></i>add to bag`;
+                        }
+                    })
+                }
             }
         })
 
