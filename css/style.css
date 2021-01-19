@@ -3,8 +3,41 @@
     --mainWhite: #fff;
     --mainBlack: #222;
     --maingray: #ececec;
-    --mainSpacing: 0.1rem;
+    --mainSpacing: .2rem;
     --mainTransition: all 0.2s linear;
+}
+
+.pop {
+    position: fixed;
+    top: 5.5rem;
+    right: .5rem;
+}
+
+.popItem {
+    display: block;
+    background: var(--primaryColor);
+    margin: 1rem 0;
+    padding: 0 .5rem;
+    /* color: var(--mainWhite); */
+    /* text-transform: capitalize; */
+    width: 8rem;
+    height: 5rem;
+    object-fit: contain;
+    animation: pop 0.2s;
+}
+
+.popItem span {
+    text-transform: lowercase;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 0.5;
+        transform: translate(150%);
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 * {
@@ -13,10 +46,18 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     color: var(--mainBlack);
     background: var(--mainWhite);
     font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* =================== Navbar =================== */
@@ -26,7 +67,7 @@ body {
     top: 0;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 6rem;
     width: 100%;
     background: var(--maingray);
     z-index: 1;
@@ -37,7 +78,7 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 1250px;
+    max-width: 125rem;
     margin: 0 auto;
     padding: 0 1.5rem;
 }
@@ -52,16 +93,16 @@ body {
 }
 
 .nav__icon {
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     cursor: pointer;
 }
 
 .cart__items {
     position: absolute;
-    top: -7px;
-    right: -7px;
-    padding: 0 5px;
-    font-size: 0.8rem;
+    top: -.7rem;
+    right: -.7rem;
+    padding: 0 .5rem;
+    font-size: 1.2rem;
     background: var(--primaryColor);
     color: var(--mainWhite);
     border-radius: 20%;
@@ -76,33 +117,34 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 6rem);
     background: url(../assets/img/hero-bcg.jpeg) center/cover no-repeat;
 }
 
 .banner {
     display: inline-block;
     align-items: center;
-    padding: 2rem;
+    padding: 3.5rem;
     text-align: center;
     background: #ecececb2;
     color: var(--mainBlack);
 }
 
 .banner__title {
-    margin-bottom: 2rem;
-    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    font-size: 3.3rem;
     text-transform: uppercase;
     letter-spacing: var(--mainSpacing);
 }
 
 .banner__btn {
     -webkit-user-select: none;
-    padding: 1rem 2rem;
+    padding: 1.5rem 4rem;
     background: var(--primaryColor);
     letter-spacing: var(--mainSpacing);
-    font-size: 0.8rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    color: var(--mainBlack);
     text-transform: uppercase;
     outline: none;
     border: 1px solid var(--primaryColor);
@@ -124,8 +166,8 @@ body {
 }
 
 .section__title h2 {
-    margin-bottom: 2.5rem;
-    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-size: 3rem;
     text-align: center;
     text-transform: capitalize;
     letter-spacing: var(--mainSpacing);
@@ -133,11 +175,11 @@ body {
 
 .products__center {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    grid-column-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    grid-column-gap: 2rem;
     grid-row-gap: 2rem;
     width: 90vw;
-    max-width: 1170px;
+    max-width: 117rem;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -155,7 +197,7 @@ body {
     display: block;
     width: 100%;
     object-fit: contain;
-    min-height: 12rem;
+    min-height: 18rem;
     transition: var(--mainTransition);
 }
 
@@ -170,10 +212,10 @@ body {
     background: var(--primaryColor);
     border: none;
     text-transform: uppercase;
-    padding: 0.4rem 0.6rem;
+    padding: 0.8rem 1rem;
     letter-spacing: var(--mainSpacing);
     cursor: pointer;
-    font-size: 0.6rem;
+    font-size: .9rem;
     font-weight: bold;
     transition: var(--mainTransition);
     transform: translateX(101%);
@@ -188,19 +230,22 @@ body {
 }
 
 .fa-shopping-cart {
-    margin-right: 5px;
+    font-size: 1.2rem;
+    margin-right: .5rem;
 }
 
 .product h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
+    font-size: 1.8rem;
     letter-spacing: var(--mainSpacing);
     text-transform: capitalize;
 }
 
 .product h4 {
     text-align: center;
+    font-size: 1.6rem;
     color: var(--primaryColor);
 }
 
@@ -226,11 +271,11 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    overflow: scroll;
-    padding: 1.5rem;
+    overflow-y: scroll;
+    padding: 1.8rem;
+    transform: translateX(100%);
     background: var(--mainWhite);
     transition: var(--mainTransition);
-    /* transform: translateX(100%); */
     z-index: 3;
 }
 
@@ -250,6 +295,7 @@ body {
 }
 
 .close__cart {
+    font-size: 1.8rem;
     cursor: pointer;
 }
 
@@ -258,7 +304,8 @@ body {
 }
 
 .cart h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
     letter-spacing: var(--mainSpacing);
     text-align: center;
     text-transform: capitalize;
@@ -269,27 +316,28 @@ body {
     align-items: center;
     grid-template-columns: auto 1fr auto;
     grid-column-gap: 1rem;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
 }
 
 .cart__item img {
-    width: 75px;
-    height: 75px;
+    width: 8rem;
+    height: 8rem;
 }
 
 .cart__item h4 {
-    font-size: 0.85rem;
+    font-size: 1.6rem;
     text-transform: capitalize;
     letter-spacing: var(--mainSpacing);
 }
 
 .cart__item h5 {
     margin: 0.5rem 0;
+    font-size: 1.5rem;
     letter-spacing: var(--mainSpacing);
 }
 
 .remove__item {
-    font-size: 0.9rem;
+    font-size: 1.6rem;
     color: grey;
     cursor: pointer;
 }
@@ -297,9 +345,11 @@ body {
 .fa-chevron-up, .fa-chevron-down {
     color: var(--primaryColor);
     cursor: pointer;
+    font-size: 1.6rem;
 }
 
 .item__amount {
+    font-size: 1.6rem;
     text-align: center;
 }
 
@@ -308,9 +358,9 @@ body {
 }
 
 .cart__footer h3 {
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     text-transform: capitalize;
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
 }
 
 /* =================== End of Cart =================== */

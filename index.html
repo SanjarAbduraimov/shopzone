@@ -7,16 +7,11 @@
     <title>Shopping Cart</title>
     <!-- icon CSS-->
     <link rel="stylesheet" href="assets/icon/css/all.min.css">
-
-    <!-- bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> -->
-
     <!-- custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar__center">
@@ -54,31 +49,21 @@
     </section>
     <!-- End of Products  -->
 
+    <!-- Notification -->
+    <div class="pop">
+
+    </div>
+
+    <!-- End of Notification -->
+
     <!-- Cart  -->
-    <div class="cart__overlay showCart">
+    <div class="cart__overlay">
         <div class="cart">
             <span class="close__cart">
                 <i class="far fa-window-close"></i>
             </span>
             <h2>your cart</h2>
-            <div class="cart__content">
-
-                <!-- Cart Item -->
-                <div class="cart__item">
-                    <img src="./assets/img/logo.svg" alt="product" class="cart__img">
-                    <div>
-                        <h4>dresser</h4>
-                        <h5>$22.99</h5>
-                        <span class="remove__item">remove</span>
-                    </div>
-                    <div>
-                        <i class="fas fa-chevron-up"></i>
-                        <p class="item__amount">1</p>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <!-- End of Cart Item -->
-            </div>
+            <div class="cart__content"></div>
             <div class="cart__footer">
                 <h3> your total: $ <span class="cart__total">0</span></h3>
                 <button class="clear__cart banner__btn">clear cart</button>
