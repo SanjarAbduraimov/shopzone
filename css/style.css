@@ -92,6 +92,22 @@ a {
     cursor: pointer;
 }
 
+.logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    word-spacing: -15px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.logo span:first-child {
+    color: var(--mainBlack);
+}
+
+.logo span:last-child {
+    color: var(--primaryColor);
+}
+
 .nav__icon {
     font-size: 1.8rem;
     cursor: pointer;
