@@ -95,7 +95,7 @@ a {
 .logo {
     font-size: 2.5rem;
     font-weight: 800;
-    word-spacing: -15px;
+    word-spacing: -8px;
     text-transform: capitalize;
     cursor: pointer;
 }
@@ -266,6 +266,32 @@ a {
 }
 
 /* =================== End of Products =================== */
+
+/* =================== Footer =================== */
+
+footer {
+    background: var(--maingray);
+}
+
+.footer__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6rem;
+    max-width: 125rem;
+    width: 100%;
+    margin: 0 auto;
+    color: var(--mainBlack);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.footer__center span {
+    cursor: pointer;
+}
+
+/* =================== End of Footer =================== */
 
 /* =================== Cart =================== */
 
