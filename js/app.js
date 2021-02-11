@@ -5,30 +5,47 @@ const cartItems = document.querySelector(".cart__items");
 const cartDOM = document.querySelector(".cart");
 const closeCartBtn = document.querySelector(".close__cart");
 const clearCartBtn = document.querySelector(".clear__cart");
+const orderBtn = document.querySelector(".buy__btn");
 const cartOverlay = document.querySelector(".cart__overlay");
 const cartContent = document.querySelector(".cart__content");
+const cartContentEmpty = document.querySelector(".empty");
 const productsDOM = document.querySelector(".products__center");
 const cartTotal = document.querySelector(".cart__total");
+const cartFooter = document.querySelector(".cart__footer");
 // cart
 let cart = [];
 let buttonsDom = [];
-// getting the products
+
 class Products {
     async getProducts() {
         try {
-            let result = await fetch("products.json");
-            let data = await result.json();
-            let products = data.items;
+            let result = await db.collection('products').get();
+            let data = await result.docs;
 
-            products = products.map(item => {
-                const { title, price } = item.fields;
-                const { id } = item.sys;
-                const image = item.fields.image.fields.file.url;
-                return { title, price, id, image };
-            });
-            return products;
-        } catch (error) {
-            console.log(error);
+            data = data.map(item => {
+                return item.data();
+            })
+            return data;
+
+            // let result = await fetch("products.json");
+            // let data = await result.json();
+            // let products = data.items;
+
+            // products = products.map(item => {
+            //     const { title, price } = item.fields;
+            //     const { id } = item.sys;
+            //     const image = item.fields.image.fields.file.url;
+            //     return { title, price, id, image };
+            // });
+            // console.log(products);
+            // return products;
+        } catch {
+            if (localStorage.products) {
+                let result = await localStorage.products;
+                let data = await JSON.parse(result);
+                return data;
+            }
+            Storage.onFailed();
         }
     }
 }
@@ -61,6 +78,7 @@ class UI {
         buttons.forEach(i => {
             let id = parseInt(i.dataset.id);
             let inCart = cart.find(item => item.id == id);
+
             if (inCart) {
                 i.innerText = "In Cart";
                 i.disabled = true;
@@ -106,6 +124,13 @@ class UI {
         })
         cartTotal.innerHTML = tempTotal.toFixed(2);
         cartItems.innerHTML = itemsTotal;
+        if (cart.length < 1) {
+            cartFooter.style.display = "none";
+            cartContentEmpty.style.display = "block";
+        } else {
+            cartFooter.style.display = "block";
+            cartContentEmpty.style.display = "none";
+        }
     }
     addCartItem(cartItem) {
         cartContent.innerHTML += `<div class="cart__item">
@@ -123,18 +148,18 @@ class UI {
         </div>`
     }
     cartEvents() {
-        // let removeButton = [...document.querySelectorAll(".remove__item")];
-        // removeButton.forEach(i => {
-        //     i.addEventListener("click", event => {
-        //         let id = i.dataset.id;
-        //         console.log(id);
-        //         const carts = Storage.remove(id)
-        //         console.log(carts);
-        //         i.parentElement.parentElement.remove();
-        //         Storage.saveCart(carts);
-        //         this.setCartValue(carts);
-        //     })
-        // })
+        let removeButton = [...document.querySelectorAll(".remove__item")];
+        removeButton.forEach(i => {
+            i.addEventListener("click", event => {
+                let id = i.dataset.id;
+                console.log(id);
+                const carts = Storage.remove(id)
+                console.log(carts);
+                i.parentElement.parentElement.remove();
+                Storage.saveCart(carts);
+                this.setCartValue(carts);
+            })
+        })
         clearCartBtn.addEventListener("click", () => {
             cartItems.innerHTML = 0;
             cartContent.innerHTML = "";
@@ -145,6 +170,18 @@ class UI {
             cart.length = 0;
             this.setCartValue(cart);
             Storage.saveCart(cart);
+        })
+        orderBtn.addEventListener("click", () => {
+            let total = 0;
+            let ordered = [];
+            cart.forEach(i => {
+                total += i.amount;
+                ordered = [...ordered, i];
+                return total;
+            })
+            console.log(ordered);
+            alert(`You ordered ${total} products`);
+            clearCartBtn.click();
         })
         cartDOM.addEventListener("click", event => {
             if (event.target.classList.contains("remove__item")) {
@@ -210,6 +247,16 @@ class UI {
         cart.forEach(i => {
             this.addCartItem(i);
         });
+        document.addEventListener("keypress", event => {
+            if (event.key === "o") {
+                this.showCart();
+            }
+        })
+        document.addEventListener("keypress", event => {
+            if (event.key === "x") {
+                this.hideCart();
+            }
+        })
         cartBtn.addEventListener("click", this.showCart);
         closeCartBtn.addEventListener("click", this.hideCart);
     }
@@ -218,6 +265,9 @@ class UI {
 class Storage {
     static saveProducts(products) {
         localStorage.setItem("products", JSON.stringify(products));
+    }
+    static onFailed() {
+        document.body.innerHTML = `<h1 style="font-size:55rem; text-align: center; color: #FD8F1E;">404</h1>`;
     }
     static getProsduct(id) {
         let products = JSON.parse(localStorage.getItem("products"));
@@ -248,18 +298,5 @@ document.addEventListener("DOMContentLoaded", () => {
             ui.addToBag();
             ui.cartEvents();
         });
+
 });
-// class userName {
-//     async getUserName() {
-//         try {
-//             let name = await "Sanjarbek";
-//             return name;
-//         } catch (error) {
-//             alert("Xatolik");
-//         }
-//     }
-
-
-// }
-// const ooo = new userName();
-// ooo.getUserName().then(name => console.log(name));
